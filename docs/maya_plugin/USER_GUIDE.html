@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TopoMotion 1.0.2 — Maya 사용자 매뉴얼</title>
+<style>
+@font-face{font-family:Pretendard;src:url("fonts/PretendardVariable.woff2") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("fonts/JetBrainsMono-Regular.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+:root{color-scheme:light;--ink:#1c2c3c;--muted:#657485;--blue:#156878;--line:#dce5eb;--body:Pretendard,"Malgun Gothic",sans-serif;--mono:"JetBrains Mono",Pretendard,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f1f5f7;color:var(--ink);font:400 17px/1.8 var(--body);word-break:keep-all;overflow-wrap:break-word}
+header{padding:50px 32px;background:#173545;color:white}header p{color:#c8dce5;margin:12px 0 0}h1{font-size:38px;font-weight:750;letter-spacing:-.035em;line-height:1.25;margin:12px 0}h2{font-size:26px;font-weight:750;letter-spacing:-.025em;line-height:1.4;margin:0 0 20px}h3{font-size:19px;font-weight:700;margin:30px 0 12px}.tag{font-size:12px;font-weight:650;letter-spacing:.14em;color:#96d8d5}.lead{font-size:19px;font-weight:500}
+main{max-width:900px;margin:28px auto;padding:0 28px 64px}section{background:#fff;border:1px solid var(--line);border-radius:16px;padding:32px;margin-bottom:22px;scroll-margin-top:24px;box-shadow:0 3px 14px #16334504}p{margin:12px 0}strong{font-weight:700;color:#132f42}a{color:var(--blue);text-underline-offset:4px}a:hover{color:#0b4754}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #259999;outline-offset:4px}
+#guide-toc{position:fixed;z-index:10;left:24px;top:50%;transform:translateY(-50%);width:212px;max-height:calc(100vh - 48px);overflow:auto;padding:20px 12px;background:#ffffffed;border:1px solid #dce6eb;border-radius:18px;box-shadow:0 14px 45px #17354514;backdrop-filter:blur(12px)}.toc-heading{padding:0 12px 14px;font-size:13px;color:var(--muted);font-weight:500}.toc-heading span{display:block;font-size:21px;color:var(--ink);font-weight:750;margin-top:2px}#guide-toc a{display:block;padding:10px 12px;margin:3px 0;border-radius:9px;text-decoration:none;color:#526677;font-size:14px;font-weight:550;line-height:1.5;border-left:3px solid transparent;transition:background .16s,color .16s}#guide-toc a:hover{background:#edf6f5;color:#135f69}#guide-toc a[aria-current="location"]{background:#e5f2f0;border-left-color:#168b81;color:#075c56;font-weight:750}.toc-toggle{display:none}
+.note{border-left:4px solid #23988f;background:#edf8f6;padding:16px 20px;margin:22px 0;border-radius:0 10px 10px 0}.warn{border-left-color:#c18420;background:#fff8eb}.small{color:var(--muted);font-size:14px}li{padding:5px 0}table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}th,td{border-bottom:1px solid var(--line);text-align:left;padding:13px 12px;vertical-align:top}th{background:#eff5f8;font-weight:700}td:first-child{font-weight:600;color:#254a5a}
+code{font:400 .85em/1.65 var(--mono);font-variant-ligatures:none;color:#61458a;background:#f3eff9;border:1px solid #e7e0f0;padding:3px 6px;border-radius:5px;overflow-wrap:anywhere;word-break:break-word}code.install-file{color:#075e68;background:#e9f6f5;border-color:#c4e2de}code.package-file{display:inline-block;max-width:100%;padding:8px 12px;margin-top:6px}strong code{font-weight:400}pre{font:400 13px/1.8 var(--mono);background:#f3f5f8;border:1px solid var(--line);padding:18px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}kbd{font:500 .9em var(--body);border:1px solid #bdcbd5;border-bottom-width:2px;border-radius:4px;padding:2px 7px;background:#f9fbfc}
+.steps{counter-reset:step;list-style:none;padding:0;margin:18px 0}.steps>li{position:relative;padding:3px 0 20px 44px}.steps>li:before{counter-increment:step;content:counter(step);position:absolute;left:0;top:4px;border-radius:50%;background:#e8f3f2;color:#126e68;font-size:14px;font-weight:750;width:29px;height:29px;text-align:center;line-height:29px}.success{font-weight:700;color:#116c62}
+details{margin:18px 0;border:1px solid #dbe5eb;border-radius:10px;background:#fafcfd;overflow:hidden}summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 18px;font-weight:650;font-size:16px;cursor:pointer;transition:background .16s,color .16s}summary::-webkit-details-marker{display:none}summary::after{content:"+";flex:none;width:25px;text-align:center;font-size:24px;font-weight:400;line-height:1;color:#267d84;transition:transform .16s}summary:hover{background:#e8f4f2;color:#085c62}summary:hover::after{transform:scale(1.18)}details[open]>summary{background:#edf6f5;border-bottom:1px solid #d9e9e6;color:#085c62}details[open]>summary::after{content:"−"}details>p,details>ol,details>ul,details>pre{margin:16px 20px}details>ol,details>ul{padding-left:20px}
+.panel-guide{margin:24px 0}.panel-guide a{display:block}.panel-guide img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px}.panel-guide figcaption{margin-top:10px;font-size:14px;color:var(--muted)}
+@media(min-width:1100px){main{margin-left:calc(256px + (100% - 256px - min(900px,100% - 256px))/2);margin-right:0;width:calc(100% - 256px)}header{padding-left:calc(284px + (100% - 256px - min(900px,100% - 256px))/2)}}
+@media(max-width:1099px){header{padding-right:100px}.toc-toggle{display:flex;align-items:center;gap:12px;position:fixed;z-index:12;top:20px;right:20px;padding:10px 15px;background:#fff;color:#194b5b;border:1px solid #d6e4e9;border-radius:12px;box-shadow:0 5px 22px #132c4020;font:650 15px var(--body);cursor:pointer}.toc-toggle:hover{background:#e8f4f2}#guide-toc{display:none;left:auto;right:20px;top:72px;transform:none;width:245px;max-height:calc(100dvh - 96px)}#guide-toc.is-open{display:block}}
+@media(max-width:650px){header{padding:30px 90px 28px 20px}main{padding:0 12px 40px;margin-top:16px}section{padding:22px 18px}h1{font-size:29px}h2{font-size:23px}.lead{font-size:16px}body{font-size:16px}table{font-size:14px}th,td{padding:10px 7px}.steps>li{padding-left:38px}code{font-size:.8em}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{body{background:white;font-size:10.5pt}header{padding:20px;color:#172838;background:white}header p,.tag{color:#526478}main{max-width:none;width:auto;margin:0;padding:0}section{border:0;box-shadow:none;padding:15px 0}#guide-toc,.toc-toggle{display:none!important}h2,h3{break-after:avoid}tr{break-inside:avoid}a{color:inherit}summary::after{display:none}}
+</style>
+</head>
+<body>
+<header>
+<div class="tag">MAYA 2027 · TOPOMOTION 1.0.2</div>
+<h1>TopoMotion 사용 매뉴얼</h1>
+<p class="lead">설치 → 샘플 선택 → 뼈대 생성 → 재생</p>
+<p>사용 환경: Windows · Maya 2027</p>
+</header>
+<main>
+<button class="toc-toggle" type="button" aria-controls="guide-toc" aria-expanded="false">목차 <span aria-hidden="true">☰</span></button>
+<nav id="guide-toc" aria-label="목차">
+<div class="toc-heading">사용 매뉴얼<span>목차</span></div>
+<a href="#install">1. 설치</a><a href="#first">2. 샘플 재생</a>
+<a href="#save">3. 애니메이션 저장·열기</a><a href="#own">4. 뼈대 저장</a>
+<a href="#buttons">5. 패널·버튼 안내</a><a href="#check">6. 검사</a>
+<a href="#trouble">7. 문제 해결</a><a href="#remove">8. 업데이트·제거</a>
+</nav>
+<section id="install">
+<h2>1. 설치</h2>
+<p><strong>준비 파일</strong>　<code class="package-file">TopoMotion-1.0.2-Windows-Maya2027.zip</code></p>
+<ol class="steps">
+<li><strong>ZIP 전체 압축 해제</strong><br>설치 후에도 보관할 폴더 선택.</li>
+<li><strong>Maya 2027 실행</strong><br>작업 중인 씬 저장 → <strong>File → New Scene</strong>.</li>
+<li><strong>설치 파일 끌어 놓기</strong><br>압축을 푼 폴더의 <code class="install-file">install_topomotion.py</code>를 Maya 중앙 3D 화면으로 끌어 놓기. 실행 확인 창이 뜨면 허용.</li>
+<li><strong>패널 확인</strong><br>설치 완료 창 닫기 → <strong>TopoMotion → 패널 열기</strong>. <a href="#buttons">패널 그림 보기</a></li>
+<li><strong>[설치 확인] 클릭</strong><br>정상 표시: <span class="success">샘플: 15개 / 복원 검사: 사용 가능</span>.</li>
+</ol>
+<div class="note warn"><strong>설치 폴더 이동·삭제 금지.</strong> 폴더 안의 파일도 그대로 보관.</div>
+<p>매뉴얼 다시 열기: 패널의 <strong>[사용 매뉴얼]</strong> 또는 설치 폴더의 <code>START_HERE.html</code>.</p>
+</section>
+<section id="first">
+<h2>2. 샘플 재생</h2>
+<ol class="steps">
+<li><strong>① 샘플 불러오기</strong> 클릭.</li>
+<li>목록에서 샘플 선택 → <strong>[뼈대 만들기]</strong> 클릭.</li>
+<li><strong>Windows → Outliner</strong>에서 <code>LIB_...</code> 그룹 선택.</li>
+<li>마우스를 3D 화면 위에 놓고 <kbd>F</kbd> → 뼈대를 화면 중앙에 표시.</li>
+<li>타임라인의 <strong>▶</strong> 클릭 → 애니메이션 재생.</li>
+</ol>
+<div class="note"><strong>샘플은 뼈대만 표시.</strong> 내 캐릭터에 동작을 자동 적용하는 기능은 없음.</div>
+<ul>
+<li><strong>씬 저장:</strong> File → Save Scene.</li>
+<li><strong>뼈대가 겹칠 때:</strong> Outliner에서 이전 <code>LIB_...</code> 그룹 숨기기 또는 삭제.</li>
+<li><strong>재생 설정:</strong> 샘플을 열면 씬의 FPS와 재생 구간이 해당 샘플에 맞게 변경.</li>
+</ul>
+<details><summary>샘플 분류</summary>
+<p>수중형 · 조류형 · 두발형 · 네발형 · 여섯발형 · 여덟발형 · 뱀형 · 기타<br>샘플 이름 옆에 관절 개수와 프레임 수 표시.</p>
+</details>
+</section>
+<section id="save">
+<h2>3. 애니메이션 저장·열기</h2>
+<h3>저장</h3>
+<ol class="steps">
+<li>애니메이션이 있는 씬 열기 → 저장할 <strong>재생 구간</strong> 지정.<br>예: 1–60프레임.</li>
+<li>Outliner에서 <strong>루트 조인트</strong> 선택.<br>루트 조인트: 뼈대 계층의 가장 위 조인트. 메시나 컨트롤러가 아닌 조인트 선택.</li>
+<li><strong>[저장 위치 변경]</strong> → 보관할 폴더 선택.</li>
+<li><strong>④ 애니메이션 저장</strong> → 캐릭터의 위쪽 방향 확인.<br>일반적인 Y-up 씬에서 똑바로 서 있는 캐릭터는 <strong>+Y</strong>. 방향이 다르면 <strong>[다른 방향 선택]</strong>.</li>
+<li>저장 완료 창에서 <code>anim_이름.json</code> 확인.</li>
+</ol>
+<h3>다시 열기</h3>
+<ol class="steps">
+<li><strong>⑤ 애니메이션 열기</strong> 클릭.</li>
+<li>저장한 <code>anim_...</code> 파일 선택.</li>
+<li>Outliner의 새 <code>TM_...</code> 그룹 선택 → 3D 화면 위에서 <kbd>F</kbd>.</li>
+<li>타임라인 <strong>▶</strong> 클릭.</li>
+</ol>
+<div class="note">새 뼈대로 생성. 기존 캐릭터는 유지.<br>재생은 <strong>0프레임부터 시작</strong>. 예: 저장 구간 1–60 → 재생 구간 0–59.</div>
+<ul>
+<li><strong>저장 위치:</strong> 패널의 ‘저장 위치’에서 확인. 패널을 다시 열면 기본 폴더로 초기화.</li>
+<li><strong>덮어쓰기 주의:</strong> 같은 폴더에 같은 리그를 다시 저장하면 기존 파일 교체. 이전 파일을 보관하려면 이름이나 저장 폴더 변경.</li>
+<li><strong>저장 대상:</strong> 뼈대와 동작. 메시·스킨·컨트롤러는 제외.</li>
+</ul>
+</section>
+<section id="own">
+<h2>4. 뼈대 저장</h2>
+<p>동작 없이 뼈대 구조만 보관할 때 사용.</p>
+<ol class="steps">
+<li>기준으로 삼을 포즈로 이동 → <strong>루트 조인트</strong> 선택.</li>
+<li><strong>[저장 위치 변경]</strong> → 보관할 폴더 선택.</li>
+<li><strong>③ 뼈대 저장</strong> → 위쪽 방향 확인.</li>
+<li>저장 완료 창에서 <code>rig_이름.json</code> 확인.</li>
+</ol>
+<div class="note"><strong>rig_ 파일은 재생 불가.</strong> 동작을 저장하려면 ④ 사용.<br>위쪽 방향 선택은 정보 기록용. 캐릭터의 자세는 그대로 유지.</div>
+</section>
+<section id="buttons">
+<h2>5. 패널·버튼 안내</h2>
+<p>처음 사용: <strong>[설치 확인] → [① 샘플 불러오기]</strong>.</p>
+<figure class="panel-guide">
+<a href="images/panel-guide-1.0.2.png" target="_blank" rel="noopener" aria-label="패널 안내 그림 크게 보기">
+<img src="images/panel-guide-1.0.2.png" width="1222" height="1287" loading="lazy" alt="TopoMotion 패널 안내. 1: 매뉴얼과 설치 확인. 2: 저장 위치. 3: 샘플 불러오기. 4: 뼈대 확인과 저장. 5: 애니메이션 저장과 열기. 6: 복원 결과 확인.">
+</a>
+<figcaption>1.0.2 패널을 바탕으로 만든 안내 그림. 그림 클릭 → 크게 보기.<br>청록색 번호는 위치 안내용. 버튼의 ①–⑥과 별개.</figcaption>
+</figure>
+<table><thead><tr><th>버튼</th><th>기능</th></tr></thead><tbody>
+<tr><td>① 샘플 불러오기</td><td>샘플로 새 뼈대·키프레임 생성</td></tr>
+<tr><td>② 뼈대 확인</td><td>리그 정보가 정확하게 읽히는지 검사</td></tr>
+<tr><td>③ 뼈대 저장</td><td>현재 포즈의 뼈대 구조 저장</td></tr>
+<tr><td>④ 애니메이션 저장</td><td>지정한 재생 구간의 동작 저장</td></tr>
+<tr><td>⑤ 애니메이션 열기</td><td>저장한 동작을 새 뼈대로 열기</td></tr>
+<tr><td>⑥ 복원 결과 확인</td><td>동작을 복원했을 때의 회전 차이 검사</td></tr>
+<tr><td>저장 위치 변경</td><td>③④의 저장 위치 지정</td></tr>
+<tr><td>Shelf에 바로가기 추가</td><td>현재 Shelf 탭에 패널 열기 버튼 추가</td></tr>
+<tr><td>설치 확인</td><td>설치 위치·샘플 수·작동 상태 확인</td></tr>
+<tr><td>사용 매뉴얼</td><td>매뉴얼 열기</td></tr>
+</tbody></table>
+<div class="note warn"><strong>②③④⑥ 사용 전 루트 조인트 선택.</strong><br>
+선택이 없으면 씬 전체 처리. 중간 조인트를 선택하면 그 아래 뼈대만 처리.</div>
+<p><strong>미지원:</strong> 문장으로 모션 만들기 · 다른 캐릭터에 동작 자동 적용.</p>
+</section>
+<section id="check">
+<h2>6. 검사 <span class="small">선택 사항</span></h2>
+<h3>리그 확인</h3>
+<p>루트 조인트 선택 → <strong>② 뼈대 확인</strong> → ‘뼈대 정보 일치’ 여부 확인.</p>
+<h3>동작 복원 확인</h3>
+<p>재생 구간을 <strong>32프레임 이상</strong>으로 지정 → 루트 조인트 선택 → <strong>⑥ 복원 결과 확인</strong>.</p>
+<ul>
+<li><strong>검사 구간:</strong> 재생 구간의 처음 32프레임.</li>
+<li><strong>평균·최대 오차:</strong> 원래 동작과 복원한 동작의 회전 차이. 단위는 도(°).</li>
+<li><strong>차이가 가장 큰 관절:</strong> 평균 차이가 가장 큰 관절.</li>
+</ul>
+<div class="note">②⑥은 결과 확인용. 씬이나 애니메이션은 변경되지 않음.</div>
+</section>
+<section id="trouble">
+<h2>7. 문제 해결</h2>
+<table><thead><tr><th>증상</th><th>조치</th></tr></thead><tbody>
+<tr><td>설치되지 않음</td><td>Windows·Maya 2027 확인 → ZIP 전체 압축 해제 → 설치 파일을 3D 화면으로 끌어 놓기.</td></tr>
+<tr><td>TopoMotion 메뉴 없음</td><td>Windows → Settings/Preferences → Plug-in Manager → <code>topomotion_plugin.py</code>의 <strong>Loaded</strong>·<strong>Auto load</strong> 체크.</td></tr>
+<tr><td>① 사용 불가 / 샘플 없음</td><td>ZIP 전체를 다시 압축 해제 → 설치 파일 실행.</td></tr>
+<tr><td>뼈대가 보이지 않음</td><td>Outliner에서 LIB_ 또는 TM_ 그룹 선택 → 3D 화면 위에서 <kbd>F</kbd>. 화면의 Show → Joints 체크.</td></tr>
+<tr><td>뼈대가 움직이지 않음</td><td>타임라인의 키프레임·재생 구간 확인 → <strong>▶</strong> 클릭.</td></tr>
+<tr><td>뼈대가 겹침</td><td>Outliner에서 이전 LIB_ 또는 TM_ 그룹 숨기기.</td></tr>
+<tr><td>조인트 없음 / 한 관절만 검사</td><td>Outliner에서 뼈대의 가장 위 조인트 선택.</td></tr>
+<tr><td>⑤에서 파일이 열리지 않음</td><td><code>anim_...</code> 또는 <code>motion_...</code> 파일 선택. rig_ 파일은 재생 불가.</td></tr>
+<tr><td>⑥에서 프레임 부족</td><td>재생 구간을 1–32 등 32프레임 이상으로 지정.</td></tr>
+<tr><td>복원 검사 사용 불가</td><td>Maya 종료 → ZIP 전체를 다시 압축 해제 → 재설치.</td></tr>
+<tr><td>저장 실패</td><td>[저장 위치 변경] → 문서 폴더 등 다른 위치 지정.</td></tr>
+<tr><td>이전 버전·다른 위치 관련 오류</td><td>아래 8절에 따라 기존 설치 제거 → 재설치.</td></tr>
+</tbody></table>
+<details><summary>설치 파일 끌어 놓기가 안 될 때</summary>
+<ol>
+<li><strong>Windows → General Editors → Script Editor</strong> 열기.</li>
+<li>아래 입력 영역의 <strong>Python</strong> 탭 선택.</li>
+<li>아래 두 줄 복사·붙여넣기 → 두 줄 선택 → <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.</li>
+<li>파일 선택 창에서 <code class="install-file">install_topomotion.py</code> 선택.</li>
+</ol>
+<pre>import maya.cmds as cmds, runpy
+_tm = cmds.fileDialog2(fileMode=1, caption="install_topomotion.py 선택", fileFilter="Python (*.py)"); runpy.run_path(_tm[0], run_name="__main__") if _tm else None</pre>
+</details>
+<details><summary>샘플이 누워 있거나 검사 경고가 뜰 때</summary>
+<ul>
+<li>위쪽 방향 선택은 기록용. 누운 자세를 자동으로 세우지 않음.</li>
+<li>‘빠른 회전 포함’: 빠른 회전이 포함된 구간. 다른 재생 구간으로 재검사.</li>
+<li>뼈 길이가 늘어나거나 복잡한 변형이 있는 리그: 원본 씬을 복제한 뒤 확인.</li>
+</ul>
+</details>
+<h3>해결되지 않을 때</h3>
+<p>담당자에게 <strong>[설치 확인] 결과, 누른 버튼, 사용한 파일 이름, 오류 화면</strong> 전달.</p>
+</section>
+<section id="remove">
+<h2>8. 업데이트·제거</h2>
+<h3>제거</h3>
+<ol class="steps">
+<li>작업 씬 저장.</li>
+<li><strong>Windows → Settings/Preferences → Plug-in Manager</strong>에서 TopoMotion의 <strong>Auto load</strong> 해제 → Maya 종료.</li>
+<li><code>문서/maya/2027/modules/TopoMotion.mod</code> 삭제.<br>구버전이 있으면 <code>문서/maya/modules/TopoMotion.mod</code>도 확인. Maya 사용자 폴더를 별도로 지정했다면 해당 폴더에서 확인.</li>
+<li>설치 폴더와 Shelf의 TopoMotion 버튼 삭제.</li>
+</ol>
+<h3>업데이트·설치 위치 변경</h3>
+<p>기존 설치 제거 → 새 위치에 ZIP 전체 압축 해제 → <a href="#install">1절에 따라 설치</a>.</p>
+<div class="note warn"><strong>작업 파일은 별도 보관.</strong> 저장한 Maya 씬과 내보낸 애니메이션 파일은 삭제하지 않기.</div>
+<p class="small">다른 사용자에게 전달할 때: ZIP 전체 전달. 동봉된 출처·라이선스 파일 유지.</p>
+</section>
+</main>
+<script>
+(() => {
+  const nav = document.querySelector('#guide-toc');
+  const toggle = document.querySelector('.toc-toggle');
+  const links = [...nav.querySelectorAll('a')];
+  const sections = links.map(link => document.querySelector(link.getAttribute('href')));
+  function closeMenu() { nav.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); }
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  links.forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && nav.classList.contains('is-open')) { closeMenu(); toggle.focus(); }
+  });
+  document.addEventListener('click', event => {
+    if (!nav.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+  });
+  function highlightSection() {
+    let active = sections[0];
+    sections.forEach(section => { if (section.getBoundingClientRect().top <= innerHeight * .35) active = section; });
+    links.forEach((link, index) => {
+      if (sections[index] === active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let pending = false;
+  addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => { highlightSection(); pending = false; });
+  }, {passive: true});
+  addEventListener('resize', highlightSection);
+  highlightSection();
+})();
+</script>
+</body>
+</html>
